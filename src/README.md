@@ -38,3 +38,31 @@ Database:
 2. Create MySQL Database
 3. Run Spring Boot Application
 4. Open Frontend Pages
+
+
+## Screenshots
+
+### Login
+
+![Login](images/Login.png)
+
+### Dashboard
+
+![Dashboard](images/Dashboard.png)
+
+### Transactions
+
+![Transactions](images/Transaction.png)
+
+### Analytics
+
+![Analytics](images/Analytics.png)
+
+### Goals
+
+![Goals](images/Goals.png)
+
+### Insights
+
+![Insights](images/Insights.png)
+

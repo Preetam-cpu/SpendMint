@@ -43,26 +43,20 @@ Database:
 ## Screenshots
 
 ### Login
-
 ![Login](images/Login.png)
 
 ### Dashboard
-
 ![Dashboard](images/Dashboard.png)
 
 ### Transactions
-
 ![Transactions](images/Transaction.png)
 
 ### Analytics
-
 ![Analytics](images/Analytics.png)
 
 ### Goals
-
 ![Goals](images/Goals.png)
 
 ### Insights
-
 ![Insights](images/Insights.png)
 

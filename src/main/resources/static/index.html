@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI Expense Tracker</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet"
+          href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            💸 SpendMint
+        </div>
+
+        <ul class="menu">
+
+            <li class="menu-item active"
+                onclick="showSection('dashboardSection', this)">
+
+                <i class="fa-solid fa-chart-line"></i>
+                Dashboard
+
+            </li>
+
+            <li class="menu-item"
+                onclick="showSection('transactionsSection', this)">
+
+                <i class="fa-solid fa-wallet"></i>
+                Transactions
+
+            </li>
+
+            <li class="menu-item"
+                onclick="showSection('analyticsSection', this)">
+
+                <i class="fa-solid fa-chart-pie"></i>
+                Analytics
+
+            </li>
+
+            <li class="menu-item"
+                onclick="showSection('insightsSection', this)">
+
+                <i class="fa-solid fa-brain"></i>
+                AI Insights
+
+            </li>
+
+            <li class="menu-item"
+                onclick="showSection('goalsSection', this)">
+
+                <i class="fa-solid fa-bullseye"></i>
+                Goals
+
+            </li>
+
+            <li onclick="toggleTheme()">
+
+                <i class="fa-solid fa-moon"></i>
+                Toggle Theme
+
+            </li>
+
+            <li onclick="logout()">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+
+        <div class="topbar">
+
+            <div>
+
+                <h1>Welcome Back 👋</h1>
+
+                <p id="currentDate"></p>
+
+            </div>
+
+            <div class="profile">
+
+                <div class="notification-icon">
+                    🔔
+                </div>
+
+                <div class="avatar">
+                    U
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- DASHBOARD SECTION -->
+
+        <div id="dashboardSection" class="page-section">
+
+            <div class="summary-cards">
+
+                <div class="card income-card">
+
+                    <h3>Total Income</h3>
+
+                    <h1 id="income">₹0</h1>
+
+                </div>
+
+                <div class="card expense-card">
+
+                    <h3>Total Expense</h3>
+
+                    <h1 id="expense">₹0</h1>
+
+                </div>
+
+                <div class="card balance-card">
+
+                    <h3>Balance</h3>
+
+                    <h1 id="balance">₹0</h1>
+
+                </div>
+
+                <div class="card health-card">
+
+                    <h3>Health Score</h3>
+
+                    <h1 id="healthScore">0/100</h1>
+
+                </div>
+
+            </div>
+
+            <div class="glass-section">
+
+                <h2>AI Saving Advice</h2>
+
+                <p id="savingAdvice">
+                    Loading advice...
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- TRANSACTIONS SECTION -->
+
+        <div id="transactionsSection"
+             class="page-section hidden-section">
+
+            <div class="glass-section">
+
+                <h2>Add Transaction</h2>
+
+                <div class="form-grid">
+
+                    <input type="number"
+                           id="amount"
+                           placeholder="Amount">
+
+                    <select id="type">
+
+                        <option value="income">
+                            Income
+                        </option>
+
+                        <option value="expense">
+                            Expense
+                        </option>
+
+                    </select>
+
+                    <input type="text"
+                           id="category"
+                           placeholder="Category">
+
+                    <input type="date"
+                           id="date">
+
+                </div>
+
+                <button class="primary-btn"
+                        onclick="addTransaction()">
+
+                    Save Transaction
+
+                </button>
+
+            </div>
+
+            <!-- SEARCH -->
+
+            <div class="glass-section">
+
+                <div class="search-box">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input type="text"
+                           id="searchInput"
+                           placeholder="Search by category or type..."
+                           onkeyup="searchTransactions()">
+
+                </div>
+
+            </div>
+
+            <!-- TABLE -->
+
+            <div class="glass-section">
+
+                <div class="table-header">
+
+                    <h2>Transactions</h2>
+
+                    <button class="primary-btn"
+                            onclick="exportCSV()">
+
+                        Export CSV
+
+                    </button>
+
+                </div>
+
+                <table>
+
+                    <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Amount</th>
+                        <th>Type</th>
+                        <th>Category</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+
+                    </tr>
+
+                    </thead>
+
+                    <tbody id="transactions">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+        <!-- ANALYTICS -->
+
+        <div id="analyticsSection"
+             class="page-section hidden-section">
+
+            <div class="charts-grid">
+
+                <div class="glass-section">
+
+                    <h2>Expense Analytics</h2>
+
+                    <canvas id="expenseChart" height="300"></canvas>
+
+                </div>
+
+                <div class="glass-section">
+
+                    <h2>Monthly Income</h2>
+
+                    <canvas id="incomeChart" height="300"></canvas>
+
+                </div>
+
+                <div class="glass-section">
+
+                    <h2>Monthly Expenses</h2>
+
+                    <canvas id="expenseTrendChart" height="300"></canvas>
+
+                </div>
+
+                <div class="glass-section">
+
+                    <h2>Monthly Savings</h2>
+
+                    <canvas id="savingsChart" height="300"></canvas>
+
+                </div>
+
+                <div class="glass-section">
+
+                    <h2>Budget Plan</h2>
+
+                    <canvas id="budgetChart" height ="300"></canvas>
+
+                </div>
+
+            </div>
+
+            <div class="glass-section">
+
+                <h2>Highest Spending Category</h2>
+
+                <h3 id="topCategory">Loading...</h3>
+
+            </div>
+
+        </div>
+
+        <!-- INSIGHTS -->
+
+        <div id="insightsSection"
+             class="page-section hidden-section">
+
+            <div class="glass-section">
+
+                <h2>AI Financial Insights</h2>
+
+                <ul id="insightsList"></ul>
+
+            </div>
+
+        </div>
+
+        <!-- GOALS -->
+
+        <div id="goalsSection"
+             class="page-section hidden-section">
+
+            <div class="glass-section">
+
+                <h2>Savings Goal</h2>
+
+                <input type="number"
+                       id="savingGoal"
+                       placeholder="Enter goal amount">
+
+                <br><br>
+
+                <button class="primary-btn"
+                        onclick="calculateGoalProgress()">
+
+                    Calculate Progress
+
+                </button>
+
+                <h3 id="goalProgress"></h3>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
